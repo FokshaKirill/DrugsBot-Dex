@@ -72,6 +72,6 @@ public class DrugStoreValidator : AbstractValidator<DrugStore>
                 // .Must(a => a.)
 
             // RuleFor(n => n.Address.Street)
-
+            // Utrom sdelayu. Proverka GitHub'a
     }
 }
