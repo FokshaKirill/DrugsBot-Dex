@@ -32,6 +32,16 @@
         /// Номер дома.
         /// </summary>
         public string House { get; private set; }
+        
+        /// <summary>
+        /// Номер дома.
+        /// </summary>
+        public string Country { get; private set; }
+
+        /// <summary>
+        /// Номер дома.
+        /// </summary>
+        public string PostalCode { get; private set; }
 
         /// <summary>
         /// Возвращает строковое представление адреса.

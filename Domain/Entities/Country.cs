@@ -26,7 +26,10 @@
         /// </summary>
         public string Code { get; private set; }
         
-        // Навигационное свойство для связи с препаратами
+        
+        /// <summary>
+        /// Навигационное свойство для связи с препаратами
+        /// </summary>
         public ICollection<Drug> Drugs { get; private set; } = new List<Drug>();
     }
 }
