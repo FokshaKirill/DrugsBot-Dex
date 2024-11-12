@@ -12,9 +12,7 @@ public static class ValidationMessage
     public static string WrongPostalCode = "{PropertyName} должен быть числовым и состоять из 5-6 цифр";
     public static string LessThanNumError = "{PropertyName} должен быть больше чем {min}";
     public static string GreaterThanNumError = "{PropertyName} должен быть меньше чем {max}";
-    public static string OnlyNumsError = "{PropertyName} должен содержать только цифры";
     public static string NegativeNumOrZeroError = "{PropertyName} не может быть отрицательным значением или нулём";
     public static string NegativeNumError = "{PropertyName} не может быть отрицательным значением";
-    public static string OnlyLettersError = "{PropertyName} должен содержать только буквы";
     public static string SpecialSymbolsError = "{PropertyName} не должен содержать специальных символов";
 }

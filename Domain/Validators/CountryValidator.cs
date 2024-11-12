@@ -17,7 +17,6 @@ public class CountryValidator : AbstractValidator<Country>
 
         RuleFor(c => c.Code)
             .Length(2).WithMessage(ValidationMessage.WrongLengthRange)
-            .Matches(@"^[A-Z]+$").WithMessage(ValidationMessage.WrongMatches)
-            .Must(code => !string.IsNullOrEmpty(code) && Drug.ValidCountryCodes.Contains(code)).WithMessage(ValidationMessage.WrongCountryCode);
+            .Matches(@"^[A-Z]+$").WithMessage(ValidationMessage.WrongMatches);
     }
 }

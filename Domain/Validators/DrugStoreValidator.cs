@@ -16,7 +16,7 @@ public class DrugStoreValidator : AbstractValidator<DrugStore>
             .Length(2, 100).WithMessage(ValidationMessage.WrongLengthRange);
             
             RuleFor(dn => dn.Number)
-                .GreaterThan(0);
+                .GreaterThan(0).WithMessage(ValidationMessage.NegativeNumOrZeroError);
 
             RuleFor(n => n.Address)
                 .NotNull().WithMessage(ValidationMessage.NotNull)

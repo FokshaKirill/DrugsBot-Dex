@@ -31,5 +31,17 @@
         /// Навигационное свойство для связи с препаратами
         /// </summary>
         public ICollection<Drug> Drugs { get; private set; } = new List<Drug>();
+        
+        /// <summary>
+        /// Коллекция ISO-кодов
+        /// </summary>
+        public static readonly HashSet<string> ValidCountryCodes =
+        [
+            "AR", "AT", "AU", "BE", "BR", "CA", "CH", "CN", 
+            "CO", "DE", "DK", "EG", "ES", "FI", "FR", "GB", 
+            "GR", "IN", "IT", "JP", "KR", "MX", "MY", "NG", 
+            "NL", "NO", "PH", "PL", "PT", "RU", "SE", "SG", 
+            "TH", "TR", "UA", "US", "ZA"
+        ];
     }
 }

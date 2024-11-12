@@ -16,8 +16,16 @@ public class DrugValidator : AbstractValidator<Drug>
                 .Length(2, 150).WithMessage(ValidationMessage.WrongLengthRange)
                 .Matches("^[a-zа-я0-9]+$").WithMessage(ValidationMessage.SpecialSymbolsError);
             
+        RuleFor(m => m.Manufacturer)
+            .NotNull().WithMessage(ValidationMessage.NotNull)
+            .NotEmpty().WithMessage(ValidationMessage.NotEmpty)
+            .Length(2, 100).WithMessage(ValidationMessage.WrongLengthRange)                
+            .Matches(@"^[a-zа-я\s\-]+$").WithMessage(ValidationMessage.SpecialSymbolsError);
+
+        
         RuleFor(d => d.CountryCodeId)
             .Length(2).WithMessage(ValidationMessage.WrongLength)
-            .Matches(@"^[a-z\s]+$", RegexOptions.IgnoreCase);
+            .Must(c => Country.ValidCountryCodes.Contains(c))
+            .Matches(@"^[A-Z]+$").WithMessage(ValidationMessage.WrongMatches);
     }
 }
