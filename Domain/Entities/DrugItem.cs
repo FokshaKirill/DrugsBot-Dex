@@ -1,11 +1,14 @@
-﻿namespace Domain.Entities
+﻿using Domain.DomainEvents;
+using Domain.Validators;
+
+namespace Domain.Entities
 {
     /// <summary>
     /// Связь между препаратом и аптекой
     /// </summary>
-    public class DrugItem : BaseEntity
+    public class DrugItem : BaseEntity<DrugItem>
     {
-        public DrugItem(Guid drugId, Guid drugStoreId, decimal cost, int count, Drug drug, DrugStore drugStore)
+        public DrugItem(Guid drugId, Guid drugStoreId, decimal cost, double count, Drug drug, DrugStore drugStore)
         {
             DrugId = drugId;
             DrugStoreId = drugStoreId;
@@ -33,10 +36,22 @@
         /// <summary>
         /// Количество препарата на складе.
         /// </summary>
-        public int Count { get; private set; }
+        public double Count { get; private set; }
         
-        // Навигационные свойства
+        /// <summary>
+        /// Навигационные свойства.
+        /// </summary>
         public Drug Drug { get; private set; }
         public DrugStore DrugStore { get; private set; }
+
+        public void UpdateDrugCount(double count)
+        {
+            Count = count;
+
+            //Вызов валидации через базовый класс
+            ValidateEntity(new DrugItemValidator());
+            
+            AddDomainEvent(new DrugItemUpdatedEvent());
+        }
     }
 }

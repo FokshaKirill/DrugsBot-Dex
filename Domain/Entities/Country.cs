@@ -3,7 +3,7 @@
     /// <summary>
     /// Справочник стран
     /// </summary>
-    public class Country : BaseEntity
+    public class Country : BaseEntity<Country>
     {
         /// <summary>
         /// Конструктор для инициализации страны с названием и кодом.
@@ -25,7 +25,6 @@
         /// Код страны (например, ISO-код).
         /// </summary>
         public string Code { get; private set; }
-        
         
         /// <summary>
         /// Навигационное свойство для связи с препаратами
