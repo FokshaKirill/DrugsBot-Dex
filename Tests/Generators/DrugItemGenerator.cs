@@ -22,9 +22,9 @@ public class DrugItemGenerator
         });
     
     /// <summary>
-    /// Генерация лекарства
+    /// Генерация товара
     /// </summary>
-    /// <returns>Лекарство.</returns>
+    /// <returns>Товар.</returns>
     public static DrugItem GenerateDrugItem()
     {
         return Faker.Generate();

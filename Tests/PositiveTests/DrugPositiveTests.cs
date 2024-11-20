@@ -10,7 +10,7 @@ public class DrugPositiveTests
     private readonly Faker _faker = new();
     
     /// <summary>
-    /// Проверка, что у сущности Drug корректно создается экземпляр
+    /// Проверка на правильное создание экземпляра Drug
     /// </summary>
     [Fact]
     public void Add_Drug_ReturnNewDrug()

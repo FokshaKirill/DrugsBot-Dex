@@ -11,7 +11,7 @@ public class DrugNegativeTests
     public static IEnumerable<object[]> TestDrugValidationExceptionData = NegativeTestsDataGenerator.GetDrugValidationExceptionProperties();
     
     /// <summary>
-    /// Проверка, что у сущности Drug выбрасывается ValidationException.
+    /// Проверка на выброс ошибки у экземпляра Drug
     /// </summary>
     /// <param name="name">Название лекарства.</param>
     /// <param name="manufacturer">Производитель.</param>

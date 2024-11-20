@@ -12,9 +12,9 @@ public class CountryGenerator
         ));
     
     /// <summary>
-    /// Генерация с
+    /// Генерация страны
     /// </summary>
-    /// <returns>Лекарство.</returns>
+    /// <returns>Страна.</returns>
     public static Country GenerateCountry()
     {
         return Faker.Generate();
