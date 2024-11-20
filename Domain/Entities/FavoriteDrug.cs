@@ -1,33 +1,42 @@
-﻿namespace Domain.Entities;
+﻿using Domain.Validation.Validators;
 
+namespace Domain.Entities;
+
+/// <summary>
+/// Избранный препарат.
+/// </summary>
 public class FavoriteDrug : BaseEntity<FavoriteDrug>
 {
-    public FavoriteDrug(
-        string externalUserId,         
-        Guid? drugId,
-        Drug drug, 
-        Guid? drugStoreId,
-        DrugStore? drugStore,
-        Guid? profileId,
-        Profile? profile
-        )
+    public FavoriteDrug(Guid profileId, Guid drugId, Profile profile, Drug drug, Guid? drugStoreId = null, DrugStore? drugStore = null)
     {
-        ExternalUserId = externalUserId;
+        ProfileId = profileId;
         DrugId = drugId;
-        Drug = drug;
         DrugStoreId = drugStoreId;
+        Profile = profile;
+        Drug = drug;
         DrugStore = drugStore;
         
-        // ProfileId = profileId;
-        // Profile = profile;
+        // Вызов валидации через базовый класс с использованием переданной функции проверки
+        ValidateEntity(new FavoriteDrugValidator());
     }
-    
-    public string ExternalUserId { get; private set; }
-    public Drug Drug { get; private set; }
+
+    /// <summary>
+    /// Идентификатор профиля.
+    /// </summary>
+    public Guid ProfileId { get; private init; }
+
+    /// <summary>
+    /// Идентификатор препарата.
+    /// </summary>
+    public Guid DrugId { get; private set; }
+
+    /// <summary>
+    /// Идентификатор аптеки.
+    /// </summary>
     public Guid? DrugStoreId { get; private set; }
-    public DrugStore DrugStore { get; private set; }
-    public Guid? DrugId { get; private set; }
-    
-    // public Profile Profile { get; private set; }
-    // public Guid? ProfileId { get; private set; }
+
+    // Навигационные свойства
+    public Profile Profile { get; private set; }
+    public Drug Drug { get; private set; }
+    public DrugStore? DrugStore { get; private set; }
 }

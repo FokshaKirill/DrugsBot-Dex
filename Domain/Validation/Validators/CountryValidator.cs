@@ -1,8 +1,9 @@
 ﻿using System.Text.RegularExpressions;
 using Domain.Entities;
 using FluentValidation;
+using Domain.Validators;
 
-namespace Domain.Validators;
+namespace Domain.Validation.Validators;
 
 public class CountryValidator : AbstractValidator<Country>
 {
@@ -13,10 +14,10 @@ public class CountryValidator : AbstractValidator<Country>
                 .NotNull().WithMessage(ValidationMessage.NotNull)
                 .NotEmpty().WithMessage(ValidationMessage.NotEmpty)
                 .Length(2, 100).WithMessage(ValidationMessage.WrongLengthRange)
-                .Matches(@"^[a-zа-я\s]+$", RegexOptions.IgnoreCase).WithMessage(ValidationMessage.WrongMatches);
+                .Matches(RegexPatterns.OnlyLettersAndSpaces, RegexOptions.IgnoreCase).WithMessage(ValidationMessage.WrongMatches);
 
         RuleFor(c => c.Code)
-            .Length(2).WithMessage(ValidationMessage.WrongLengthRange)
-            .Matches(@"^[A-Z]+$").WithMessage(ValidationMessage.WrongMatches);
+            .Length(2).WithMessage(ValidationMessage.WrongLength)
+            .Matches(RegexPatterns.OnlyBigLatinLetters).WithMessage(ValidationMessage.WrongMatches);
     }
 }

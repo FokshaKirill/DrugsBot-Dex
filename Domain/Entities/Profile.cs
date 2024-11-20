@@ -1,34 +1,29 @@
-﻿namespace Domain.Entities
+﻿using Domain.Validation.Validators;
+using Domain.Validators;
+using Domain.ValueObjects;
+
+namespace Domain.Entities;
+
+public sealed class Profile : BaseEntity<Profile>
 {
-    /// <summary>
-    /// Лекарственный препарат
-    /// </summary>
-    public class Profile : BaseEntity<Profile>
+    public Profile(string externalId, Email? email)
     {
-        public Profile(Guid id, string externalid, List<FavoriteDrug> favoriteDrugs, string? email)
-        {
-            Id = id;
-            Externalid = externalid;
-            Email = email;
-            FavoriteDrugs = favoriteDrugs;
-        }
-        
-        /// <summary>
-        /// Идентификатор профиля.
-        /// </summary>
-        public Guid Id { get; private set; }
-        
-        /// <summary>
-        /// Идентификатор профиля Telegram.
-        /// </summary>
-        public string Externalid { get; private set; }
-        
-        /// <summary>
-        /// Коллекция избранных лекарств.
-        /// </summary>
-        public List<FavoriteDrug> FavoriteDrugs { get; private set; }
-        
-        // Навигационное свойство для связи с объектом Country
-        public string? Email { get; private set; }
+        ExternalId = externalId;
+        Email = email;
+
+        ValidateEntity(new ProfileValidator());
     }
+    
+    /// <summary>
+    /// Внешний идентификатор.
+    /// </summary>
+    public string ExternalId { get; private init; }
+
+    /// <summary>
+    /// Электронная почта.
+    /// </summary>
+    public Email? Email { get; private set; }
+
+    // Навигационное свойство для связи с FavoriteDrug.
+    public List<FavoriteDrug> FavoriteDrugs { get; private set; } = [];
 }

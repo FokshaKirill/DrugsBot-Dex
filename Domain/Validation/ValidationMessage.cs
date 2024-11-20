@@ -15,4 +15,5 @@ public static class ValidationMessage
     public static string NegativeNumOrZeroError = "{PropertyName} не может быть отрицательным значением или нулём";
     public static string NegativeNumError = "{PropertyName} не может быть отрицательным значением";
     public static string SpecialSymbolsError = "{PropertyName} не должен содержать специальных символов";
+    public static string EmailError = "{PropertyName} не является экземпляром электронной почты";
 }

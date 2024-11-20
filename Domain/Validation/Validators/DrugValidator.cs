@@ -1,9 +1,8 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using System.Text.RegularExpressions;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Domain.Validators;
 using FluentValidation;
 
-namespace Domain.Validators;
+namespace Domain.Validation.Validators;
 
 public class DrugValidator : AbstractValidator<Drug>
 {
@@ -14,18 +13,17 @@ public class DrugValidator : AbstractValidator<Drug>
                 .NotNull().WithMessage(ValidationMessage.NotNull)
                 .NotEmpty().WithMessage(ValidationMessage.NotEmpty)
                 .Length(2, 150).WithMessage(ValidationMessage.WrongLengthRange)
-                .Matches("^[a-zа-я0-9]+$").WithMessage(ValidationMessage.SpecialSymbolsError);
+                .Matches(RegexPatterns.NoSpecialSymbols).WithMessage(ValidationMessage.SpecialSymbolsError);
             
         RuleFor(m => m.Manufacturer)
             .NotNull().WithMessage(ValidationMessage.NotNull)
             .NotEmpty().WithMessage(ValidationMessage.NotEmpty)
             .Length(2, 100).WithMessage(ValidationMessage.WrongLengthRange)                
-            .Matches(@"^[a-zа-я\s\-]+$").WithMessage(ValidationMessage.SpecialSymbolsError);
+            .Matches(RegexPatterns.OnlyLettersSpacesDashes).WithMessage(ValidationMessage.SpecialSymbolsError);
 
         
         RuleFor(d => d.CountryCodeId)
             .Length(2).WithMessage(ValidationMessage.WrongLength)
-            .Must(c => Country.ValidCountryCodes.Contains(c))
-            .Matches(@"^[A-Z]+$").WithMessage(ValidationMessage.WrongMatches);
+            .Matches(RegexPatterns.OnlyBigLatinLetters).WithMessage(ValidationMessage.WrongMatches);
     }
 }

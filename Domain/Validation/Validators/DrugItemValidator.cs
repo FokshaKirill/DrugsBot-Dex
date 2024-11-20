@@ -1,9 +1,8 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using System.Text.RegularExpressions;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Domain.Validators;
 using FluentValidation;
 
-namespace Domain.Validators;
+namespace Domain.Validation.Validators;
 
 public class DrugItemValidator : AbstractValidator<DrugItem>
 {
