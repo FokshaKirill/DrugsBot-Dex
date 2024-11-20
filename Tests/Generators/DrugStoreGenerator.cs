@@ -18,9 +18,9 @@ public class DrugStoreGenerator
         });
     
     /// <summary>
-    /// Генерация лекарства
+    /// Генерация магазина
     /// </summary>
-    /// <returns>Лекарство.</returns>
+    /// <returns>Магазин.</returns>
     public static DrugStore GenerateDrugStore()
     {
         return Faker.Generate();

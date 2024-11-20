@@ -43,12 +43,14 @@ public class NegativeTestsDataGenerator
     /// </summary>
     public static IEnumerable<object[]> GetDrugStoreValidationExceptionProperties()
     {
+        var address = AddressGenerator.GenerateAddress();
+
         return new List<object[]>
         {
-            new object[] {null, Faker.Random.Int(1, 1000), new Address(Faker.Address.City(), Faker.Address.StreetName(), Faker.Random.Int(1, 100), Faker.Random.Int(10000, 999999)), Faker.Phone.PhoneNumber("373########") },
-            new object[] {Faker.Random.String2(10), -1, new Address(Faker.Address.City(), Faker.Address.StreetName(), Faker.Random.Int(1, 100), Faker.Random.Int(10000, 999999)), Faker.Phone.PhoneNumber("373########") },
+            new object[] {null, Faker.Random.Int(1, 1000), address, Faker.Phone.PhoneNumber("373########") },
+            new object[] {Faker.Random.String2(10), -1, address, Faker.Phone.PhoneNumber("373########") },
             new object[] {Faker.Random.String2(10), Faker.Random.Int(1, 1000), null, Faker.Phone.PhoneNumber("373########") },
-            new object[] {Faker.Random.String2(10), Faker.Random.Int(1, 1000), new Address(Faker.Address.City(), Faker.Address.StreetName(), Faker.Random.Int(1, 100), Faker.Random.Int(10000, 999999)), null }
+            new object[] {Faker.Random.String2(10), Faker.Random.Int(1, 1000), address, null }
         };
     }
     
