@@ -1,15 +1,15 @@
 ﻿using Domain.Entities;
-using Xunit;
-using Tests.Generators;
-using FluentValidation;
 using FluentAssertions;
+using FluentValidation;
+using Tests.Generators;
 
 namespace Tests.NegativeTests;
 
 public class DrugNegativeTests
 {
-    public static IEnumerable<object[]> TestDrugValidationExceptionData = NegativeTestsDataGenerator.GetDrugValidationExceptionProperties();
-    
+    public static IEnumerable<object[]> TestDrugValidationExceptionData =
+        NegativeTestsDataGenerator.GetDrugValidationExceptionProperties();
+
     /// <summary>
     /// Проверка на выброс ошибки у экземпляра Drug
     /// </summary>
@@ -19,10 +19,7 @@ public class DrugNegativeTests
     /// <param name="country">Страна.</param>
     [Theory]
     [MemberData(nameof(TestDrugValidationExceptionData))]
-    public void Add_DrugProperties_ThrowValidationException(
-        string name,
-        string manufacturer,
-        string countryCodeId,
+    public void Add_DrugProperties_ThrowValidationException(string name, string manufacturer, string countryCodeId,
         Country country)
     {
         // Act
