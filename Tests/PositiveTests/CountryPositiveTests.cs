@@ -21,8 +21,8 @@ public class CountryPositiveTests
     public void Add_Country_ReturnNewCountry()
     {
         // Arrange
-        var name = _faker.Random.String2(10);
-        var code = _faker.Random.Int(1, 1000).ToString();
+        var name = _faker.Random.String2(2);
+        var code = _faker.PickRandom(Country.ValidCountryCodes.ToList());
 
         // Act
         var country = new Country(name, code);
