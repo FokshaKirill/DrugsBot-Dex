@@ -3,14 +3,20 @@ using Domain.Entities;
 
 namespace Tests.Generators;
 
+/// <summary>
+/// Генератор сущности DrugStore
+/// </summary>
 public class DrugItemGenerator
 {
+    /// <summary>
+    /// Генератор фальшивых данных для сущности DrugItem
+    /// </summary>
     private static readonly Faker<DrugItem> Faker = new Faker<DrugItem>()
         .CustomInstantiator(f =>
         {
             var drugStore = DrugStoreGenerator.GenerateDrugStore();
             var drug = DrugGenerator.GenerateDrug();
-            
+
             return new DrugItem(
                 drug.Id,
                 drugStore.Id,
@@ -20,7 +26,7 @@ public class DrugItemGenerator
                 drugStore
             );
         });
-    
+
     /// <summary>
     /// Генерация товара
     /// </summary>

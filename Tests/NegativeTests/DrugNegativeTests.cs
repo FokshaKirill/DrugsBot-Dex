@@ -5,8 +5,14 @@ using Tests.Generators;
 
 namespace Tests.NegativeTests;
 
+/// <summary>
+/// Негативные тесты для сущности Drug
+/// </summary>
 public class DrugNegativeTests
 {
+    /// <summary>
+    /// Коллекция ошибок при тестировании сущности Drug
+    /// </summary>
     public static IEnumerable<object[]> TestDrugValidationExceptionData =
         NegativeTestsDataGenerator.GetDrugValidationExceptionProperties();
 
