@@ -1,8 +1,8 @@
-﻿using Application.Interfaces.Repositories;
+﻿using Application.Interfaces.Repositories.IDrugRepositories;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.UseCases.Queries;
+namespace Application.UseCases.Queries.DrugQueries;
 
 /// <summary>
 /// Хендлер для получения запроса по идентификатору

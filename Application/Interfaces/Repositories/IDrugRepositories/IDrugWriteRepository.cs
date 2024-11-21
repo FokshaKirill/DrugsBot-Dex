@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 
-namespace Application.Interfaces.Repositories;
+namespace Application.Interfaces.Repositories.IDrugRepositories;
 
 /// <summary>
 /// Репозиторий записи для сущности Drug

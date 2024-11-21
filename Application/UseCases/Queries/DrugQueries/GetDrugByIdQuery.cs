@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using MediatR;
 
-namespace Application.UseCases.Queries;
+namespace Application.UseCases.Queries.DrugQueries;
 
 /// <summary>
 /// Получение сущности Drug по идентификатору запроса
