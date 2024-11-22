@@ -10,14 +10,7 @@ namespace Application.UseCases.Commands.DrugCommands;
 /// </summary>
 public class CreateDrugCommandHandler : IRequestHandler<CreateDrugCommand, Drug?>
 {
-    /// <summary>
-    /// Репозиторий для чтения данных о лекарствах.
-    /// </summary>
     private readonly IDrugReadRepository _drugReadRepository;
-
-    /// <summary>
-    /// Репозиторий для записи данных о лекарствах.
-    /// </summary>
     private readonly IDrugWriteRepository _drugWriteRepository;
 
     /// <summary>
@@ -38,17 +31,15 @@ public class CreateDrugCommandHandler : IRequestHandler<CreateDrugCommand, Drug?
     /// <param name="request">Данные для создания лекарства.</param>
     /// <param name="cancellationToken">Токен для отмены операции.</param>
     /// <returns>Созданное лекарство или <c>null</c>, если операция не выполнена.</returns>
-    /// <exception cref="DrugAlreadyExistsException">Выбрасывается, если лекарство с таким названием уже существует.</exception>
+    /// <exception cref="EntityAlreadyExistsException">Выбрасывается, если лекарство с таким названием уже существует.</exception>
     public async Task<Drug?> Handle(CreateDrugCommand request, CancellationToken cancellationToken)
     {
-        // Проверяем, существует ли уже лекарство с таким именем
         var existingDrug = await _drugReadRepository.GetByIdAsync(request.Id, cancellationToken);
         if (existingDrug != null)
         {
-            throw new DrugAlreadyExistsException();
+            throw new EntityAlreadyExistsException();
         }
 
-        // Создаем новый объект лекарства
         var drug = new Drug(
             request.Name,
             request.Manufacturer,
@@ -57,10 +48,8 @@ public class CreateDrugCommandHandler : IRequestHandler<CreateDrugCommand, Drug?
             new List<DrugItem>()
         );
 
-        // Добавляем его в базу данных
         await _drugWriteRepository.AddAsync(drug, cancellationToken);
 
-        // Возвращаем созданный объект
         return drug;
     }
 }

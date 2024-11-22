@@ -6,18 +6,11 @@ using MediatR;
 namespace Application.UseCases.Commands.DrugCommands;
 
 /// <summary>
-/// Обработчик команды для обновления сущности лекарства.
+/// Хендлер для обновления сущности лекарства.
 /// </summary>
 public class UpdateDrugCommandHandler : IRequestHandler<UpdateDrugCommand, Drug?>
 {
-    /// <summary>
-    /// Репозиторий для чтения данных о лекарствах.
-    /// </summary>
     private readonly IDrugReadRepository _drugReadRepository;
-
-    /// <summary>
-    /// Репозиторий для записи данных о лекарствах.
-    /// </summary>
     private readonly IDrugWriteRepository _drugWriteRepository;
 
     /// <summary>
@@ -33,18 +26,19 @@ public class UpdateDrugCommandHandler : IRequestHandler<UpdateDrugCommand, Drug?
     }
 
     /// <summary>
-    /// 
+    /// Обрабатывает команду для обновления данных о лекарстве.
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    /// <exception cref="NotFoundException"></exception>
+    /// <param name="request">Объект команды с данными для обновления.</param>
+    /// <param name="cancellationToken">Токен отмены операции.</param>
+    /// <returns>Обновленная сущность <see cref="Drug"/>, либо null, если обновление невозможно.</returns>
+    /// <exception cref="EntityNotFoundException">Выбрасывается, если лекарство с указанным идентификатором не найдено.</exception>
     public async Task<Drug?> Handle(UpdateDrugCommand request, CancellationToken cancellationToken)
     {
         var drug = await _drugReadRepository.GetByIdAsync(request.Id, cancellationToken);
         if (drug == null)
         {
-            throw new NotFoundException($"{request.GetType()} с данным Id {request.Id} не было найдено в системе.");
+            throw new EntityNotFoundException(
+                $"{request.GetType()} с данным Id {request.Id} не было найдено в системе.");
         }
 
         if (!string.IsNullOrEmpty(request.Name))
@@ -62,7 +56,6 @@ public class UpdateDrugCommandHandler : IRequestHandler<UpdateDrugCommand, Drug?
         if (request.DrugItems != null && request.DrugItems.Any())
             drug.UpdateDrugItems(request.DrugItems);
 
-        // Сохраняем изменения
         await _drugWriteRepository.UpdateAsync(drug, cancellationToken);
 
         return drug;

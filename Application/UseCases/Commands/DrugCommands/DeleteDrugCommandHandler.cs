@@ -9,14 +9,7 @@ namespace Application.UseCases.Commands.DrugCommands;
 /// </summary>
 public class DeleteDrugCommandHandler : IRequestHandler<DeleteDrugCommand, bool>
 {
-    /// <summary>
-    /// Репозиторий чтения для проверки существования лекарства.
-    /// </summary>
     private readonly IDrugReadRepository _drugReadRepository;
-
-    /// <summary>
-    /// Репозиторий записи для работы с сущностью Drug.
-    /// </summary>
     private readonly IDrugWriteRepository _drugWriteRepository;
 
     /// <summary>
@@ -36,16 +29,16 @@ public class DeleteDrugCommandHandler : IRequestHandler<DeleteDrugCommand, bool>
     /// <param name="request">Команда удаления.</param>
     /// <param name="cancellationToken">Токен отмены операции.</param>
     /// <returns>Возвращает true, если удаление прошло успешно.</returns>
+    /// <exception cref="EntityNotFoundException">Выбрасывается, если лекарство с указанным идентификатором не найдено.</exception>
     public async Task<bool> Handle(DeleteDrugCommand request, CancellationToken cancellationToken)
     {
-        // Проверяем, существует ли лекарство с указанным Id
         var drug = await _drugReadRepository.GetByIdAsync(request.Id, cancellationToken);
         if (drug == null)
         {
-            throw new NotFoundException($"{request.GetType()} с данным Id {request.Id} не было найдено в системе.");
+            throw new EntityNotFoundException(
+                $"{request.GetType()} с данным Id {request.Id} не было найдено в системе.");
         }
 
-        // Удаляем лекарство
         await _drugWriteRepository.DeleteAsync(request.Id, cancellationToken);
 
         return true;

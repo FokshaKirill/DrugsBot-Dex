@@ -8,7 +8,18 @@ namespace Application.UseCases.Commands.DrugItemCommands;
 /// </summary>
 public class UpdateDrugItemCommand : IRequest<DrugItem?>
 {
+    /// <summary>
+    /// Идентификатор связи препарата и аптеки.
+    /// </summary>
     public Guid Id { get; set; }
+
+    /// <summary>
+    /// Новая стоимость препарата в аптеке.
+    /// </summary>
     public decimal? Cost { get; set; }
+
+    /// <summary>
+    /// Новое количество препарата в аптеке.
+    /// </summary>
     public double? Count { get; set; }
 }

@@ -7,5 +7,8 @@ namespace Application.UseCases.Commands.DrugItemCommands;
 /// </summary>
 public class DeleteDrugItemCommand : IRequest<bool>
 {
+    /// <summary>
+    /// Идентификатор связи препарата и аптеки.
+    /// </summary>
     public Guid Id { get; set; }
 }
