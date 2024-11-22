@@ -7,4 +7,5 @@ namespace Application.Interfaces.Repositories.IDrugItemRepositories;
 /// </summary>
 public interface IDrugItemWriteRepository : IWriteRepository<DrugItem>
 {
+    IReadOnlyList<DrugItem> ReadRepository { get; }
 }

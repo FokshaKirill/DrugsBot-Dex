@@ -33,24 +33,32 @@ public class CreateDrugItemCommandHandler : IRequestHandler<CreateDrugItemComman
     }
 
     /// <summary>
-    /// Обрабатывает команду создания связи между препаратом и аптеками.
+    /// Обрабатывает команду создания связи между препаратом и аптекой.
     /// </summary>
     /// <param name="request">Команда с данными для создания связи.</param>
     /// <param name="cancellationToken">Токен отмены для управления задачей.</param>
     /// <returns>Созданная сущность <see cref="DrugItem"/>, либо null в случае ошибки.</returns>
-    /// <exception cref="EntityAlreadyExistsException">Выбрасывается, если товар с таким названием уже существует.</exception>
+    /// <exception cref="EntityNotFoundException">Выбрасывается, если препарат или аптека не найдены.</exception>
     public async Task<DrugItem?> Handle(CreateDrugItemCommand request, CancellationToken cancellationToken)
     {
+        // Проверяем существование препарата
         var drug = await _drugReadRepository.GetByIdAsync(request.DrugId, cancellationToken);
-        var drugStore = await _drugStoreReadRepository.GetByIdAsync(request.DrugStoreId, cancellationToken);
-
-        if (drug == null || drugStore == null)
+        if (drug == null)
         {
-            throw new EntityAlreadyExistsException();
+            throw new EntityNotFoundException($"Препарат с Id {request.DrugId} не найден.");
         }
 
+        // Проверяем существование аптеки
+        var drugStore = await _drugStoreReadRepository.GetByIdAsync(request.DrugStoreId, cancellationToken);
+        if (drugStore == null)
+        {
+            throw new EntityNotFoundException($"Аптека с Id {request.DrugStoreId} не найдена.");
+        }
+
+        // Создаем новый объект DrugItem
         var drugItem = new DrugItem(request.DrugId, request.DrugStoreId, request.Cost, request.Count, drug, drugStore);
 
+        // Сохраняем объект в базе данных
         await _drugItemWriteRepository.AddAsync(drugItem, cancellationToken);
 
         return drugItem;

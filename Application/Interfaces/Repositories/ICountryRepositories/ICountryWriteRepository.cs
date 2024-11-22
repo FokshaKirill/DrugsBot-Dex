@@ -7,4 +7,5 @@ namespace Application.Interfaces.Repositories.ICountryRepositories;
 /// </summary>
 public interface ICountryWriteRepository : IWriteRepository<Country>
 {
+    IReadOnlyList<Country> ReadRepository { get; }
 }
