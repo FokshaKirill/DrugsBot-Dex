@@ -4,10 +4,15 @@ using MediatR;
 namespace Application.UseCases.Commands.DrugCommands;
 
 /// <summary>
-/// 
+/// Команда для создания нового лекарства.
 /// </summary>
 public class CreateDrugCommand : IRequest<Drug?>
 {
+    /// <summary>
+    /// Уникальный идентификатор препарата.
+    /// </summary>
+    public Guid Id { get; set; }
+
     /// <summary>
     /// Название препарата.
     /// </summary>
@@ -27,4 +32,9 @@ public class CreateDrugCommand : IRequest<Drug?>
     /// Связь с объектом Country.
     /// </summary>
     public Country Country { get; set; }
+
+    /// <summary>
+    /// Навигационное свойство для связи с DrugItem.
+    /// </summary>
+    public ICollection<DrugItem> DrugItems { get; set; } = new List<DrugItem>();
 }

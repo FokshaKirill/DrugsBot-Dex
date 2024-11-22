@@ -7,7 +7,7 @@ namespace Application.UseCases.Queries.DrugQueries;
 /// <summary>
 /// Хендлер для получения запроса по идентификатору
 /// </summary>
-public class GetByIdQueryHandler : IRequestHandler<GetDrugByIdQuery, Drug?>
+public class GetDrugByIdQueryHandler : IRequestHandler<GetDrugByIdQuery, Drug?>
 {
     /// <summary>
     /// Репозиторий чтения для сущности Drug
@@ -18,7 +18,7 @@ public class GetByIdQueryHandler : IRequestHandler<GetDrugByIdQuery, Drug?>
     /// Конструктор хендлера
     /// </summary>
     /// <param name="drugReadRepository"></param>
-    public GetByIdQueryHandler(IDrugReadRepository drugReadRepository)
+    public GetDrugByIdQueryHandler(IDrugReadRepository drugReadRepository)
     {
         _drugReadRepository = drugReadRepository;
     }
