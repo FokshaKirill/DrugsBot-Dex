@@ -41,24 +41,27 @@ public class CreateDrugItemCommandHandler : IRequestHandler<CreateDrugItemComman
     /// <exception cref="EntityNotFoundException">Выбрасывается, если препарат или аптека не найдены.</exception>
     public async Task<DrugItem?> Handle(CreateDrugItemCommand request, CancellationToken cancellationToken)
     {
-        // Проверяем существование препарата
         var drug = await _drugReadRepository.GetByIdAsync(request.DrugId, cancellationToken);
         if (drug == null)
         {
             throw new EntityNotFoundException($"Препарат с Id {request.DrugId} не найден.");
         }
 
-        // Проверяем существование аптеки
         var drugStore = await _drugStoreReadRepository.GetByIdAsync(request.DrugStoreId, cancellationToken);
         if (drugStore == null)
         {
             throw new EntityNotFoundException($"Аптека с Id {request.DrugStoreId} не найдена.");
         }
 
-        // Создаем новый объект DrugItem
-        var drugItem = new DrugItem(request.DrugId, request.DrugStoreId, request.Cost, request.Count, drug, drugStore);
+        var drugItem = new DrugItem(
+            request.DrugId,
+            request.DrugStoreId,
+            request.Cost,
+            request.Count,
+            drug,
+            drugStore
+        );
 
-        // Сохраняем объект в базе данных
         await _drugItemWriteRepository.AddAsync(drugItem, cancellationToken);
 
         return drugItem;

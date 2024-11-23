@@ -1,6 +1,5 @@
 ﻿using Application.Exceptions;
 using Application.Interfaces.Repositories.IDrugItemRepositories;
-using Domain.Entities;
 using MediatR;
 
 namespace Application.UseCases.Commands.DrugItemCommands;
@@ -28,16 +27,18 @@ public class DeleteDrugItemCommandHandler : IRequestHandler<DeleteDrugItemComman
     /// <summary>
     /// Обрабатывает команду удаления связи между препаратом и аптекой.
     /// </summary>
-    /// <param name="request">Команда с идентификатором удаляемого объекта <see cref="DrugItem"/>.</param>
+    /// <param name="request">Команда для удаления DrugItem.</param>
     /// <param name="cancellationToken">Токен для отмены операции.</param>
+    /// <returns>Возвращает true, если удаление прошло успешно.</returns>
     /// <exception cref="EntityNotFoundException">Выбрасывается, если товар с указанным идентификатором не найден.</exception>
     public async Task<bool> Handle(DeleteDrugItemCommand request, CancellationToken cancellationToken)
     {
         var drug = await _drugItemReadRepository.GetByIdAsync(request.Id, cancellationToken);
+
         if (drug == null)
         {
             throw new EntityNotFoundException(
-                $"{request.GetType()} с данным Id {request.Id} не было найдено в системе.");
+                $"Товар с данным Id {request.Id} не было найдено в системе.");
         }
 
         await _drugItemWriteRepository.DeleteAsync(request.Id, cancellationToken);

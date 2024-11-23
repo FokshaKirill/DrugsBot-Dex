@@ -13,7 +13,7 @@ public class DeleteCountryCommandHandler : IRequestHandler<DeleteCountryCommand,
     private readonly ICountryWriteRepository _countryWriteRepository;
 
     /// <summary>
-    /// Конструктор хендлера.
+    /// Инициализирует экземпляр класса <see cref="DeleteCountryCommandHandler"/>.
     /// </summary>
     /// <param name="countryWriteRepository"></param>
     /// <param name="countryReadRepository"></param>
@@ -29,7 +29,7 @@ public class DeleteCountryCommandHandler : IRequestHandler<DeleteCountryCommand,
     /// </summary>
     /// <param name="request">Данные для удаления страны.</param>
     /// <param name="cancellationToken">Токен отмены.</param>
-    /// <returns>Статус успешного удаления.</returns>
+    /// <returns>Возвращает true, если удаление прошло успешно.</returns>
     /// <exception cref="EntityNotFoundException">Выбрасывается, если страна с указанным идентификатором не найдена.</exception>
     public async Task<bool> Handle(DeleteCountryCommand request, CancellationToken cancellationToken)
     {
@@ -38,7 +38,7 @@ public class DeleteCountryCommandHandler : IRequestHandler<DeleteCountryCommand,
         if (country == null)
         {
             throw new EntityNotFoundException(
-                $"{request.GetType()} с данным Id {request.Id} не было найдено в системе.");
+                $"Страна с данным Id {request.Id} не была найдена в системе.");
         }
 
         await _countryWriteRepository.DeleteAsync(request.Id, cancellationToken);

@@ -38,7 +38,7 @@ public class UpdateDrugCommandHandler : IRequestHandler<UpdateDrugCommand, Drug?
         if (drug == null)
         {
             throw new EntityNotFoundException(
-                $"{request.GetType()} с данным Id {request.Id} не было найдено в системе.");
+                $"Лекарство с данным Id {request.Id} не было найдено в системе.");
         }
 
         if (!string.IsNullOrEmpty(request.Name))

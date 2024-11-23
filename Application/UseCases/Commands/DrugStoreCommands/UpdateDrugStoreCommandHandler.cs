@@ -14,7 +14,7 @@ public class UpdateDrugStoreCommandHandler : IRequestHandler<UpdateDrugStoreComm
     private readonly IDrugStoreWriteRepository _drugStoreWriteRepository;
 
     /// <summary>
-    /// Конструктор для инициализации зависимостей.
+    /// Инициализирует новый экземпляр <see cref="UpdateDrugStoreCommandHandler"/>.
     /// </summary>
     /// <param name="drugStoreReadRepository">Репозиторий для чтения данных аптеки.</param>
     /// <param name="drugStoreWriteRepository">Репозиторий для записи данных аптеки.</param>
@@ -29,21 +29,19 @@ public class UpdateDrugStoreCommandHandler : IRequestHandler<UpdateDrugStoreComm
     /// <summary>
     /// Обрабатывает команду обновления данных аптеки.
     /// </summary>
-    /// <param name="request">Команда для обновления данных.</param>
+    /// <param name="request">Команда для обновления данных аптеки.</param>
     /// <param name="cancellationToken">Токен отмены операции.</param>
-    /// <returns>Обновлённая сущность аптеки.</returns>
+    /// <returns>Обновленная сущность <see cref="DrugStore"/>, либо null, если обновление невозможно.</returns>
     /// <exception cref="EntityNotFoundException">Если аптека с указанным идентификатором не найдена.</exception>
     public async Task<DrugStore> Handle(UpdateDrugStoreCommand request, CancellationToken cancellationToken)
     {
-        // Получаем сущность аптеки из репозитория
         var drugStore = await _drugStoreReadRepository.GetByIdAsync(request.Id, cancellationToken);
         if (drugStore == null)
         {
             throw new EntityNotFoundException(
-                $"{request.GetType()} с данным Id {request.Id} не было найдено в системе.");
+                $"Аптека с данным Id {request.Id} не была найдена в системе.");
         }
 
-        // Обновляем поля, если они указаны
         if (!string.IsNullOrWhiteSpace(request.DrugNetwork))
         {
             drugStore.UpdateDrugNetwork(request.DrugNetwork);
@@ -59,7 +57,6 @@ public class UpdateDrugStoreCommandHandler : IRequestHandler<UpdateDrugStoreComm
             drugStore.UpdateAddress(request.Address);
         }
 
-        // Сохраняем изменения в репозитории
         await _drugStoreWriteRepository.UpdateAsync(drugStore, cancellationToken);
 
         return drugStore;

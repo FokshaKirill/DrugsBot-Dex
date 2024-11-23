@@ -1,6 +1,5 @@
 ﻿using Application.Exceptions;
 using Application.Interfaces.Repositories.IDrugStoreRepositories;
-using Domain.Entities;
 using MediatR;
 
 namespace Application.UseCases.Commands.DrugStoreCommands;
@@ -29,12 +28,10 @@ public class DeleteDrugStoreCommandHandler : IRequestHandler<DeleteDrugStoreComm
     /// <summary>
     /// Обрабатывает команду удаления аптеки.
     /// </summary>
-    /// <param name="request">Команда с идентификатором удаляемой аптеки.</param>
+    /// <param name="request">Команда для удаления DrugStore.</param>
     /// <param name="cancellationToken">Токен для отмены операции.</param>
-    /// <returns>Флаг, указывающий успешность операции.</returns>
-    /// <exception cref="EntityNotFoundException">
-    /// Выбрасывается, если аптека с указанным идентификатором не найдена.
-    /// </exception>
+    /// <returns>Возвращает true, если удаление прошло успешно.</returns>
+    /// <exception cref="EntityNotFoundException">Выбрасывается, если аптека с указанным идентификатором не найдена.</exception>
     public async Task<bool> Handle(DeleteDrugStoreCommand request, CancellationToken cancellationToken)
     {
         var drugStore = await _drugStoreReadRepository.GetByIdAsync(request.Id, cancellationToken);
@@ -42,7 +39,7 @@ public class DeleteDrugStoreCommandHandler : IRequestHandler<DeleteDrugStoreComm
         if (drugStore == null)
         {
             throw new EntityNotFoundException(
-                $"{nameof(DrugStore)} с данным Id {request.Id} не была найдена в системе.");
+                $"Аптека с данным Id {request.Id} не была найдена в системе.");
         }
 
         await _drugStoreWriteRepository.DeleteAsync(request.Id, cancellationToken);

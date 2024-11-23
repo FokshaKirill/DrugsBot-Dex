@@ -14,7 +14,7 @@ public class UpdateCountryCommandHandler : IRequestHandler<UpdateCountryCommand,
     private readonly ICountryWriteRepository _countryWriteRepository;
 
     /// <summary>
-    /// Конструктор хендлера.
+    /// Инициализирует новый экземпляр <see cref="UpdateCountryCommandHandler"/>.
     /// </summary>
     /// <param name="countryWriteRepository"></param>
     /// <param name="countryReadRepository"></param>
@@ -30,7 +30,7 @@ public class UpdateCountryCommandHandler : IRequestHandler<UpdateCountryCommand,
     /// </summary>
     /// <param name="request">Данные для обновления страны.</param>
     /// <param name="cancellationToken">Токен отмены.</param>
-    /// <returns>Обновленная страна.</returns>
+    /// <returns>Обновленная сущность <see cref="Country"/>, либо null, если обновление невозможно.</returns>
     /// <exception cref="EntityNotFoundException">Выбрасывается, если страна с указанным идентификатором не найдена.</exception>
     public async Task<Country?> Handle(UpdateCountryCommand request, CancellationToken cancellationToken)
     {
@@ -39,7 +39,7 @@ public class UpdateCountryCommandHandler : IRequestHandler<UpdateCountryCommand,
         if (country == null)
         {
             throw new EntityNotFoundException(
-                $"{request.GetType()} с данным Id {request.Id} не было найдено в системе.");
+                $"Страна с данным Id {request.Id} не была найдена в системе.");
         }
 
         if (!string.IsNullOrEmpty(request.Name))

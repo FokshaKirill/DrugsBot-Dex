@@ -41,7 +41,10 @@ public class CreateCountryCommandHandler : IRequestHandler<CreateCountryCommand,
             throw new EntityAlreadyExistsException();
         }
 
-        var country = new Country(request.Name, request.Code);
+        var country = new Country(
+            request.Name,
+            request.Code
+        );
 
         await _countryWriteRepository.AddAsync(country, cancellationToken);
 

@@ -14,7 +14,6 @@ public class Drug : BaseEntity<Drug>
         CountryCodeId = countryCodeId;
         Country = country;
 
-        // Вызов валидации через базовый класс с использованием переданной функции проверки
         ValidateEntity(new DrugValidator());
     }
 
@@ -26,7 +25,6 @@ public class Drug : BaseEntity<Drug>
         Country = country;
         DrugItems = drugItems;
 
-        // Вызов валидации через базовый класс с использованием переданной функции проверки
         ValidateEntity(new DrugValidator());
     }
 

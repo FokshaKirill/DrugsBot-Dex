@@ -29,8 +29,9 @@ public class UpdateDrugItemCommandHandler : IRequestHandler<UpdateDrugItemComman
     /// <summary>
     /// Обрабатывает команду обновления связи препарата и аптеки.
     /// </summary>
-    /// <param name="request">Команда с данными для обновления объекта <see cref="DrugItem"/>.</param>
+    /// <param name="request">Данные для обновления данных товара.</param>
     /// <param name="cancellationToken">Токен для отмены операции.</param>
+    /// <returns>Обновленная сущность <see cref="DrugItem"/>, либо null, если обновление невозможно.</returns>
     /// <exception cref="EntityNotFoundException">Выбрасывается, если товар с указанным идентификатором не найден.</exception>
     public async Task<DrugItem?> Handle(UpdateDrugItemCommand request, CancellationToken cancellationToken)
     {
@@ -39,7 +40,7 @@ public class UpdateDrugItemCommandHandler : IRequestHandler<UpdateDrugItemComman
         if (drugItem == null)
         {
             throw new EntityNotFoundException(
-                $"{request.GetType()} с данным Id {request.Id} не было найдено в системе.");
+                $"Товар с данным Id {request.Id} не был найден в системе.");
         }
 
         if (request.Cost.HasValue)

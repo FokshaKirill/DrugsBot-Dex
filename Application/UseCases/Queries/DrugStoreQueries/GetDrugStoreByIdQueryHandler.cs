@@ -5,17 +5,17 @@ using MediatR;
 namespace Application.UseCases.Queries.DrugStoreQueries;
 
 /// <summary>
-/// Хендлер для получения запроса по идентификатору
+/// Хендлер для получения DrugStore по идентификатору запроса.
 /// </summary>
 public class GetDrugStoreByIdQueryHandler : IRequestHandler<GetDrugStoreByIdQuery, DrugStore?>
 {
     /// <summary>
-    /// Репозиторий чтения для сущности DrugStore
+    /// Репозиторий чтения для сущности DrugStore.
     /// </summary>
     private readonly IDrugStoreReadRepository _drugStoreReadRepository;
 
     /// <summary>
-    /// Конструктор хендлера
+    /// Конструктор хендлера.
     /// </summary>
     /// <param name="drugStoreReadRepository"></param>
     public GetDrugStoreByIdQueryHandler(IDrugStoreReadRepository drugStoreReadRepository)
@@ -24,11 +24,11 @@ public class GetDrugStoreByIdQueryHandler : IRequestHandler<GetDrugStoreByIdQuer
     }
 
     /// <summary>
-    /// Метод перехвата сущности DrugStore
+    /// Метод обработки запроса на получение аптеки по идентификатору.
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">Запрос на получение сущности DrugStore.</param>
+    /// <param name="cancellationToken">Токен отмены.</param>
+    /// <returns>Объект сущности <see cref="DrugStore"/> или null, если не найден.</returns>
     /// <exception cref="NotImplementedException"></exception>
     public async Task<DrugStore?> Handle(GetDrugStoreByIdQuery request, CancellationToken cancellationToken)
     {
