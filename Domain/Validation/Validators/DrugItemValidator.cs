@@ -10,10 +10,14 @@ public class DrugItemValidator : AbstractValidator<DrugItem>
     {
         var ruleBuilderOptions =
             RuleFor(di => di.Cost)
+                .NotNull().WithMessage(ValidationMessages.NotNull)
+                .NotEmpty().WithMessage(ValidationMessages.NotEmpty)
                 .GreaterThan(0).WithMessage(ValidationMessages.NegativeNumOrZeroError)
                 .PrecisionScale(65, 2, true).WithMessage(ValidationMessages.WrongPrecisionScale);
 
         RuleFor(di => di.Count)
+            .NotNull().WithMessage(ValidationMessages.NotNull)
+            .NotEmpty().WithMessage(ValidationMessages.NotEmpty)
             .LessThanOrEqualTo(10000).WithMessage(ValidationMessages.GreaterThanNumError)
             .GreaterThanOrEqualTo(0).WithMessage(ValidationMessages.NegativeNumError);
 
