@@ -55,11 +55,11 @@ public class CreateDrugItemCommandHandler : IRequestHandler<CreateDrugItemComman
 
         var drugItem = new DrugItem(
             request.DrugId,
-            request.DrugStoreId,
-            request.Cost,
-            request.Count,
             drug,
-            drugStore
+            request.DrugStoreId,
+            drugStore,
+            request.Cost,
+            request.Count
         );
 
         await _drugItemWriteRepository.AddAsync(drugItem, cancellationToken);

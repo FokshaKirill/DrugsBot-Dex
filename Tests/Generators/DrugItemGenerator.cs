@@ -19,11 +19,11 @@ public class DrugItemGenerator
 
             return new DrugItem(
                 drug.Id,
-                drugStore.Id,
-                f.Random.Decimal(1, 1000),
-                f.Random.Int(1, 1000),
                 drug,
-                drugStore
+                drugStore.Id,
+                drugStore,
+                Math.Round(f.Random.Decimal(), 2),
+                f.Random.Int(1, 1000)
             );
         });
 

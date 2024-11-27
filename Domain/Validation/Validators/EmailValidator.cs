@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using Domain.Validators;
+﻿using Domain.Validators;
 using Domain.ValueObjects;
 using FluentValidation;
 
@@ -11,7 +10,7 @@ public class EmailValidator : AbstractValidator<Email>
     {
         var ruleBuilderOptions =
             RuleFor(e => e.Value)
-                .Matches(RegexPatterns.EmailPattern).WithMessage(ValidationMessage.EmailError)
-                .Length(1, 255).WithMessage(ValidationMessage.WrongLengthRange);
+                .Matches(RegexPatterns.EmailPattern).WithMessage(ValidationMessages.EmailError)
+                .Length(1, 255).WithMessage(ValidationMessages.WrongLengthRange);
     }
 }

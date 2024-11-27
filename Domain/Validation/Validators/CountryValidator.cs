@@ -10,16 +10,16 @@ public class CountryValidator : AbstractValidator<Country>
     public CountryValidator()
     {
         RuleFor(c => c.Name)
-            .NotNull().WithMessage(ValidationMessage.NotNull)
-            .NotEmpty().WithMessage(ValidationMessage.NotEmpty)
-            .Length(2, 100).WithMessage(ValidationMessage.WrongLengthRange)
+            .NotNull().WithMessage(ValidationMessages.NotNull)
+            .NotEmpty().WithMessage(ValidationMessages.NotEmpty)
+            .Length(2, 100).WithMessage(ValidationMessages.WrongLengthRange)
             .Matches(RegexPatterns.OnlyLettersAndSpaces, RegexOptions.IgnoreCase)
-            .WithMessage(ValidationMessage.WrongMatches);
+            .WithMessage(ValidationMessages.WrongMatches);
 
         RuleFor(c => c.Code)
-            .NotNull().WithMessage(ValidationMessage.NotNull)
-            .NotEmpty().WithMessage(ValidationMessage.NotEmpty)
-            .Length(2).WithMessage(ValidationMessage.WrongLength)
-            .Matches(RegexPatterns.OnlyBigLatinLetters).WithMessage(ValidationMessage.WrongMatches);
+            .NotNull().WithMessage(ValidationMessages.NotNull)
+            .NotEmpty().WithMessage(ValidationMessages.NotEmpty)
+            .Length(2).WithMessage(ValidationMessages.WrongLength)
+            .Matches(RegexPatterns.OnlyBigLatinLetters).WithMessage(ValidationMessages.WrongMatches);
     }
 }

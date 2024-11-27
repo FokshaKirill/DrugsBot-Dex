@@ -8,7 +8,7 @@ namespace Domain.Entities;
 /// </summary>
 public class DrugItem : BaseEntity<DrugItem>
 {
-    public DrugItem(Guid drugId, Guid drugStoreId, decimal cost, double count, Drug drug, DrugStore drugStore)
+    public DrugItem(Guid drugId, Drug drug, Guid drugStoreId, DrugStore drugStore, decimal cost, double count)
     {
         DrugId = drugId;
         DrugStoreId = drugStoreId;
@@ -45,6 +45,7 @@ public class DrugItem : BaseEntity<DrugItem>
 
     // Навигационные свойства
     public Drug Drug { get; private set; }
+
     public DrugStore DrugStore { get; private set; }
 
     #endregion

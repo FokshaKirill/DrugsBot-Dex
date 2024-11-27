@@ -10,9 +10,9 @@ public class DrugItemUpdatedEventValidator : AbstractValidator<DrugItemUpdatedEv
     {
         var ruleBuilderOptions =
             RuleFor(di => di.NewCount)
-                .NotNull().WithMessage(ValidationMessage.NotNull)
-                .NotEmpty().WithMessage(ValidationMessage.NotEmpty)
-                .GreaterThanOrEqualTo(0).WithMessage(ValidationMessage.NegativeNumError)
-                .LessThanOrEqualTo(10000).WithMessage(ValidationMessage.GreaterThanNumError);
+                .NotNull().WithMessage(ValidationMessages.NotNull)
+                .NotEmpty().WithMessage(ValidationMessages.NotEmpty)
+                .GreaterThanOrEqualTo(0).WithMessage(ValidationMessages.NegativeNumError)
+                .LessThanOrEqualTo(10000).WithMessage(ValidationMessages.GreaterThanNumError);
     }
 }

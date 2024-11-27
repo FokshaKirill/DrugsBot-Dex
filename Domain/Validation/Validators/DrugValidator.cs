@@ -9,22 +9,22 @@ public class DrugValidator : AbstractValidator<Drug>
     public DrugValidator()
     {
         RuleFor(d => d.Name)
-            .NotNull().WithMessage(ValidationMessage.NotNull)
-            .NotEmpty().WithMessage(ValidationMessage.NotEmpty)
-            .Length(2, 150).WithMessage(ValidationMessage.WrongLengthRange)
-            .Matches(RegexPatterns.NoSpecialSymbols).WithMessage(ValidationMessage.SpecialSymbolsError);
-        
+            .NotNull().WithMessage(ValidationMessages.NotNull)
+            .NotEmpty().WithMessage(ValidationMessages.NotEmpty)
+            .Length(2, 150).WithMessage(ValidationMessages.WrongLengthRange)
+            .Matches(RegexPatterns.NoSpecialSymbols).WithMessage(ValidationMessages.SpecialSymbolsError);
+
         RuleFor(d => d.Manufacturer)
-            .NotNull().WithMessage(ValidationMessage.NotNull)
-            .NotEmpty().WithMessage(ValidationMessage.NotEmpty)
-            .Length(2, 100).WithMessage(ValidationMessage.WrongLengthRange);
+            .NotNull().WithMessage(ValidationMessages.NotNull)
+            .NotEmpty().WithMessage(ValidationMessages.NotEmpty)
+            .Length(2, 100).WithMessage(ValidationMessages.WrongLengthRange);
 
         RuleFor(d => d.Country)
-            .NotNull().WithMessage(ValidationMessage.NotNull)
-            .NotEmpty().WithMessage(ValidationMessage.NotEmpty);
-        
+            .NotNull().WithMessage(ValidationMessages.NotNull)
+            .NotEmpty().WithMessage(ValidationMessages.NotEmpty);
+
         RuleFor(d => d.CountryCodeId)
-            .NotNull().WithMessage(ValidationMessage.NotNull)
-            .NotEmpty().WithMessage(ValidationMessage.NotEmpty);
+            .NotNull().WithMessage(ValidationMessages.NotNull)
+            .NotEmpty().WithMessage(ValidationMessages.NotEmpty);
     }
 }

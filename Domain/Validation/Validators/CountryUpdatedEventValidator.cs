@@ -1,5 +1,6 @@
 ﻿using Domain.DomainEvents;
 using Domain.Entities;
+using Domain.Validators;
 using FluentValidation;
 
 namespace Domain.Validation.Validators;
@@ -9,13 +10,13 @@ public class CountryUpdatedEventValidator : AbstractValidator<CountryUpdatedEven
     public CountryUpdatedEventValidator()
     {
         RuleFor(x => x.PreviousValue)
-            .NotEmpty().WithMessage("Предыдущее значение не может быть пустым.");
+            .NotEmpty().WithMessage(ValidationMessages.NotEmpty);
         RuleFor(x => x.UpdatedValue)
-            .NotEmpty().WithMessage("Новое значение не может быть пустым.");
+            .NotEmpty().WithMessage(ValidationMessages.NotEmpty);
 
         RuleFor(x => x.UpdatedValue)
             .Must(BeAValidCountryCode)
-            .WithMessage("Неверный код страны.");
+            .WithMessage(ValidationMessages.WrongCountryCode);
     }
 
     private bool BeAValidCountryCode(string code)

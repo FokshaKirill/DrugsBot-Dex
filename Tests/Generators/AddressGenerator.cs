@@ -16,7 +16,7 @@ public class AddressGenerator
                 f.Random.String2(10),
                 f.Random.String2(10),
                 f.Random.Int(1, 1000),
-                f.Random.Int(1, 1000)
+                f.Random.Int(10000, 999999)
             )
         );
 

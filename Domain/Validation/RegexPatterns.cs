@@ -9,5 +9,5 @@ public static class RegexPatterns
     public static string OnlyLetters = "^[A-ZА-Яa-zа-я]+$";
     public static string OnlyNums = @"^[\d]$";
     public static string NoSpecialSymbols = "^[A-ZА-Яa-zа-я0-9]+$";
-    public static string EmailPattern = @"^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$";
+    public static string EmailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 }

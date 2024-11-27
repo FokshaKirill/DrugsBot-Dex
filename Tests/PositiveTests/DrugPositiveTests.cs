@@ -11,7 +11,7 @@ namespace Tests.PositiveTests;
 public class DrugPositiveTests
 {
     /// <summary>
-    /// Генератор фальшивых данных для сущности Country
+    /// Генератор фальшивых данных для сущности Drug
     /// </summary>
     private readonly Faker _faker = new();
 

@@ -10,19 +10,19 @@ public class FavoriteDrugValidator : AbstractValidator<FavoriteDrug>
     {
         var ruleBuilderOptions =
             RuleFor(d => d.Drug)
-                .NotNull().WithMessage(ValidationMessage.NotNull)
-                .NotEmpty().WithMessage(ValidationMessage.NotEmpty);
-        
+                .NotNull().WithMessage(ValidationMessages.NotNull)
+                .NotEmpty().WithMessage(ValidationMessages.NotEmpty);
+
         RuleFor(d => d.DrugId)
-            .NotNull().WithMessage(ValidationMessage.NotNull)
-            .NotEmpty().WithMessage(ValidationMessage.NotEmpty);
-        
+            .NotNull().WithMessage(ValidationMessages.NotNull)
+            .NotEmpty().WithMessage(ValidationMessages.NotEmpty);
+
         RuleFor(d => d.Profile)
-            .NotNull().WithMessage(ValidationMessage.NotNull)
-            .NotEmpty().WithMessage(ValidationMessage.NotEmpty);
+            .NotNull().WithMessage(ValidationMessages.NotNull)
+            .NotEmpty().WithMessage(ValidationMessages.NotEmpty);
 
         RuleFor(d => d.ProfileId)
-            .NotNull().WithMessage(ValidationMessage.NotNull)
-            .NotEmpty().WithMessage(ValidationMessage.NotEmpty);
+            .NotNull().WithMessage(ValidationMessages.NotNull)
+            .NotEmpty().WithMessage(ValidationMessages.NotEmpty);
     }
 }
