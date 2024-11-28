@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.DAL.Configurations;
 
+/// <summary>
+/// Конфигурация для сущности DrugStore.
+/// Определяет настройки таблицы DrugStore, ключи, свойства и связи.
+/// </summary>
 public class DrugStoreConfiguration : IEntityTypeConfiguration<DrugStore>
 {
     public void Configure(EntityTypeBuilder<DrugStore> builder)
@@ -21,5 +25,11 @@ public class DrugStoreConfiguration : IEntityTypeConfiguration<DrugStore>
 
         builder.Property(x => x.Address)
             .IsRequired();
+
+        builder
+            .HasMany(ds => ds.DrugItems)
+            .WithOne(di => di.DrugStore)
+            .HasForeignKey(di => di.DrugStoreId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

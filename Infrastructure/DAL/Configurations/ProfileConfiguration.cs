@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.DAL.Configurations;
 
+/// <summary>
+/// Конфигурация для сущности Profile.
+/// Определяет настройки таблицы Profile, ключи и свойства.
+/// </summary>
 public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
 {
     public void Configure(EntityTypeBuilder<Profile> builder)
@@ -17,5 +21,11 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
 
         builder.Property(x => x.ExternalId)
             .IsRequired();
+
+        builder
+            .HasMany(p => p.FavoriteDrugs)
+            .WithOne(fd => fd.Profile)
+            .HasForeignKey(fd => fd.ProfileId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

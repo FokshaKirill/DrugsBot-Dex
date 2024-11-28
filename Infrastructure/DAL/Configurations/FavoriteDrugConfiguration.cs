@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.DAL.Configurations;
 
+/// <summary>
+/// Конфигурация для сущности FavoriteDrug.
+/// Определяет настройки таблицы FavoriteDrug, ключи, свойства и связи.
+/// </summary>
 public class FavoriteDrugConfiguration : IEntityTypeConfiguration<FavoriteDrug>
 {
     public void Configure(EntityTypeBuilder<FavoriteDrug> builder)
@@ -12,16 +16,16 @@ public class FavoriteDrugConfiguration : IEntityTypeConfiguration<FavoriteDrug>
 
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.DrugId)
-            .IsRequired();
+        builder
+            .HasOne<Drug>()
+            .WithMany()
+            .HasForeignKey(fd => fd.DrugId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-        builder.Property(x => x.Drug)
-            .IsRequired();
-
-        builder.Property(x => x.Profile)
-            .IsRequired();
-
-        builder.Property(x => x.ProfileId)
-            .IsRequired();
+        builder
+            .HasOne(fd => fd.Profile)
+            .WithMany(p => p.FavoriteDrugs)
+            .HasForeignKey(fd => fd.ProfileId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

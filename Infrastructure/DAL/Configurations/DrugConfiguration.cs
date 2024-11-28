@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.DAL.Configurations;
 
+/// <summary>
+/// Конфигурация для сущности Drug.
+/// Определяет настройки таблицы Drug, ключи, свойства и связи.
+/// </summary>
 public class DrugConfiguration : IEntityTypeConfiguration<Drug>
 {
     public void Configure(EntityTypeBuilder<Drug> builder)
@@ -20,10 +24,10 @@ public class DrugConfiguration : IEntityTypeConfiguration<Drug>
             .IsRequired()
             .HasMaxLength(100);
 
-        builder.Property(x => x.Country)
-            .IsRequired();
-
-        builder.Property(x => x.CountryCodeId)
-            .IsRequired();
+        builder
+            .HasOne(d => d.Country)
+            .WithMany(c => c.Drugs)
+            .HasForeignKey(d => d.CountryCodeId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
