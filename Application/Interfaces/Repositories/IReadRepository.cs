@@ -22,6 +22,6 @@ public interface IReadRepository<T> where T : class
     /// <param name="queryOptions"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<IQueryable<T>> GetQueryableAsync(ODataQueryOptions queryOptions,
+    Task<IQueryable<T>> GetQueryableAsync(ODataQueryOptions<T> queryOptions,
         CancellationToken cancellationToken = default);
 }

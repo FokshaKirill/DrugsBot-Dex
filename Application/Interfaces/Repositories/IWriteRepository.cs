@@ -6,10 +6,10 @@
 /// <typeparam name="T"></typeparam>
 public interface IWriteRepository<T> where T : class
 {
-    /// <summary>
-    /// Репозиторий для операций чтения базы данных
-    /// </summary>
-    IReadRepository<T> ReadRepository { get; }
+    // /// <summary>
+    // /// Репозиторий для операций чтения базы данных
+    // /// </summary>
+    // IReadRepository<T> ReadRepository { get; }
 
     /// <summary>
     /// Метод для добавления сущности
