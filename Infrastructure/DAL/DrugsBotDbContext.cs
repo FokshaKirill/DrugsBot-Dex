@@ -1,6 +1,8 @@
-﻿using System.Reflection;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Infrastructure.DAL.Configurations;
+using Infrastructure.DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Infrastructure.DAL;
 
@@ -10,12 +12,15 @@ namespace Infrastructure.DAL;
 /// </summary>
 public class DrugsBotDbContext : DbContext
 {
+    private readonly DatabaseSettings _options;
+
     /// <summary>
     /// Создает экземпляр <see cref="DrugsBotDbContext"/> с указанными параметрами.
     /// </summary>
     /// <param name="options">Параметры конфигурации контекста базы данных.</param>
-    public DrugsBotDbContext(DbContextOptions<DrugsBotDbContext> options) : base(options)
+    public DrugsBotDbContext(IOptions<DatabaseSettings> options)
     {
+        _options = options.Value;
     }
 
     /// <summary>
@@ -62,6 +67,18 @@ public class DrugsBotDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        modelBuilder.ApplyConfiguration(new DrugConfiguration());
+        modelBuilder.ApplyConfiguration(new DrugItemConfiguration());
+        modelBuilder.ApplyConfiguration(new DrugStoreConfiguration());
+        modelBuilder.ApplyConfiguration(new CountryConfiguration());
+        modelBuilder.ApplyConfiguration(new ProfileConfiguration());
+        modelBuilder.ApplyConfiguration(new FavoriteDrugConfiguration());
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseNpgsql(_options.ConnectionString,
+            (options) => { options.CommandTimeout(_options.CommandTimeout); });
     }
 }
